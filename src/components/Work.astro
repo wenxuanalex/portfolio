@@ -4,6 +4,10 @@ import { projects } from "../data/site";
 
 const featured = projects.find((project) => project.featured);
 const rest = projects.filter((project) => !project.featured);
+
+// Thumbnails switch on only once every card has one. A single card with
+// artwork beside four without reads as a bug, not a decision.
+const showThumbnails = projects.every((project) => project.hero);
 ---
 
 <Section id="work" title="Built end to end, not just modelled">
@@ -49,6 +53,17 @@ const rest = projects.filter((project) => !project.featured);
           href={`/work/${project.slug}`}
           class="group rounded-lg border border-border bg-canvas-raised p-6 flex flex-col hover:border-accent transition-colors"
         >
+          {showThumbnails && project.hero && (
+            <img
+              src={project.hero.src}
+              alt=""
+              width="1600"
+              height="900"
+              loading="lazy"
+              decoding="async"
+              class="mb-5 w-full rounded-md border border-border"
+            />
+          )}
           <h3 class="text-lg font-semibold text-ink group-hover:text-accent-soft transition-colors">
             {project.title}
           </h3>

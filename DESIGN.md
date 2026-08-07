@@ -130,9 +130,29 @@ Generated from `projects[]` in `src/data/site.ts` via `getStaticPaths`.
   "Notes" that states the gap plainly. It renders in `ink-subtle` italic behind a
   hairline left rule — set apart visually without dropping below the AA text
   floor — and is a visible prompt to the author, not filler for the reader.
-- Hero bands are abstract by design. These are pipelines, not interfaces, so a
-  fabricated UI mockup would misrepresent the work. Replace with real screenshots
-  only when genuine ones exist.
+- Hero bands are abstract by design where no genuine artwork exists. These are
+  pipelines, not interfaces, so a fabricated UI mockup would misrepresent the
+  work. Replace with real screenshots only when genuine ones exist.
+
+## Imagery
+
+Every image on this site must be a real artefact of the work — a screenshot of
+software that ran, or a diagram or chart that was actually produced. No stock
+photography, no illustration, no generated mockups.
+
+- **Format:** WebP, quality 80–88. Keep a page under ~200 KB of imagery; raw PNG
+  screenshots routinely cost 5–10× that for no visible gain.
+- **Hero plates** are composed at **1600×900** on `canvas-raised` with the accent
+  glow behind, so mixed-aspect screenshots become one consistent set. Give every
+  `<img>` explicit `width`/`height` to reserve layout space.
+- **Light artwork** (Mermaid exports, most diagrams) sets `plate: true`, which
+  renders it on a white pad inside the usual hairline border. Never drop a
+  white-background image straight onto the canvas.
+- **Loading:** heroes are `eager`, everything below the fold is `lazy`.
+- **Alt text** describes what the image shows. Card thumbnails repeat the
+  adjacent title, so they take `alt=""` and stay out of the accessibility tree.
+- **Work card thumbnails appear only when every project has one.** One card with
+  artwork beside four without reads as a defect; the component gates on this.
 
 ## Responsive
 

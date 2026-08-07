@@ -34,9 +34,18 @@ export const story = {
   ],
 };
 
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  caption?: string;
+  /** Light-background artwork needs a pale plate to sit on the dark canvas. */
+  plate?: boolean;
+};
+
 export type ProjectSection = {
   heading: string;
   body: string[];
+  image?: ProjectImage;
   todo?: boolean;
 };
 
@@ -48,6 +57,8 @@ export type Project = {
   tags: string[];
   repo?: string;
   featured?: boolean;
+  /** Doubles as the Work card thumbnail and the project page hero. */
+  hero?: ProjectImage;
   sections: ProjectSection[];
 };
 
@@ -199,30 +210,52 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "credit-card-optimiser",
-    title: "Credit Card Optimiser",
+    slug: "cardtrack",
+    title: "CardTrack",
     blurb:
-      "A RESTful FastAPI service managing user wallet states with modular CRUD logic, integrating the OpenAI API for recommendation synthesis and Pytest for CI/CD readiness.",
-    context: "Modern Software Solutions, SMU MITB · 2026 · private repository",
-    tags: ["FastAPI", "OpenAI", "Pytest", "Git"],
+      "A credit-card rewards optimiser for Singapore: log a purchase, get the card that earns you the most, and an explanation of why. Deterministic reward logic decides; the LLM only explains.",
+    context:
+      "Lead developer · seven-person team · Modern Software Solutions, SMU MITB · 2026",
+    tags: ["FastAPI", "React", "AWS", "Docker", "OpenAI"],
+    hero: {
+      src: "/images/cardtrack-hero.webp",
+      alt: "Four CardTrack app screens: new transaction entry, recommended card with explanation, spending dashboard, and card bonus detail",
+    },
     sections: [
       {
         heading: "Problem",
         body: [
-          "Choosing which card to use for a given purchase is a small optimisation problem that nobody wants to solve manually at the counter. The service models a user's wallet and reasons over it.",
+          "Singaporean cardholders routinely carry three or four cards with overlapping reward structures — base rates, bonus categories, minimum spend thresholds, reward caps, each changing without notice. Working out which card to use for a given purchase is a small optimisation problem, and nobody wants to solve it at the counter.",
+          "The team built a web app that maintains a live catalogue of card terms, lets a user assemble their own wallet from it, and answers one question well: for this amount, in this category, on this channel — which card, and how much do I earn?",
         ],
       },
       {
         heading: "Approach",
         body: [
-          "A RESTful API built with FastAPI manages wallet state through CRUD operations over a modular Python architecture, with the OpenAI API integrated for recommendation synthesis. Automated unit tests in Pytest and Git-based version control keep the service CI/CD-ready.",
+          "The system is a React and Vite single-page app over a layered FastAPI backend, split into routes, services and models, with SQLAlchemy managing a normalised schema of users, card catalogue, owned cards, bonus categories, transactions and security logs. Request and response contracts are enforced with Pydantic, and business validation lives in the service layer rather than in route handlers.",
+          "Authentication runs through AWS Cognito with JWT validation against Cognito JWKS and OTP confirmation at registration. Authorisation is role-aware, so catalogue writes are restricted to admins while ordinary users can only touch their own wallet.",
+          "I owned the card wallet management APIs, the recommendation engine, the CI/CD pipeline and the AWS deployment, working as one of the lead developers and repository managers across fourteen epics of one-week sprints.",
+        ],
+        image: {
+          src: "/images/cardtrack-architecture.webp",
+          alt: "CardTrack architecture: web UI calling a FastAPI backend split into authentication, core services and recommendation engine over a SQLite database",
+          caption: "Three-tier architecture — React SPA, layered FastAPI backend, SQLite.",
+          plate: true,
+        },
+      },
+      {
+        heading: "The AI layer",
+        body: [
+          "The design decision I'd defend hardest is that the language model never makes the decision. The backend first computes ranked recommendations from database-verified card rules — rates, bonus categories, minimum spend, caps — and only then passes those verified results to the AI service, which turns them into a readable explanation.",
+          "That ordering means a wrong answer can only come from the rules, which are testable, not from a model that might hallucinate a reward rate. The explanation layer is hardened accordingly: configurable timeout and retry, automatic fallback to deterministic template text if the LLM is unavailable, merchant input sanitised before it reaches a prompt, and every GenAI access and failure event written to a security log for audit.",
+          "The result is explainability without surrendering accuracy or governance — the screen tells you it's 1.2 miles per dollar on a $380 entertainment purchase, and that number came from the database, not the model.",
         ],
       },
       {
-        heading: "Notes",
-        todo: true,
+        heading: "Shipping it",
         body: [
-          "This project lives in a private repository, so this page is written from summary detail only. Worth adding: what the recommendation logic actually optimises for, how the LLM output is constrained or validated, and the data model behind wallet state.",
+          "Continuous integration runs on every pull request: clean environment, dependencies installed, full test suite with coverage gates before anything merges. Continuous deployment picks up from there — a multi-stage Docker build containerises the frontend assets and backend runtime together, pushes to Docker Hub, and redeploys onto AWS EC2 with configuration and secrets injected from GitHub Secrets and migrations applied at service startup.",
+          "Testing combines unit, integration and security-focused suites, using TestClient against SQLite test databases to verify routes and database behaviour end to end, with dedicated tests for authentication and GenAI access events. Statement and branch coverage reached 89%.",
         ],
       },
     ],
