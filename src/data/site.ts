@@ -50,18 +50,25 @@ export const education = [
 
 export const projects = [
   {
-    title: "Credit Card Optimiser",
-    blurb:
-      "Developed a RESTful API using FastAPI to manage user wallet states, implementing CRUD logic with a modular Python architecture. Integrated OpenAI's API and used Pytest for CI/CD readiness.",
-    tags: ["FastAPI", "OpenAI", "Pytest"],
-    href: "https://github.com/wenxuanalex",
-  },
-  {
     title: "Agentic Frameworks for Financial Q&A",
     blurb:
       "Evaluated the performance of agentic frameworks (LangGraph, CrewAI, LlamaIndex) for financial question-answering on SEC filings, identifying that LangGraph achieved the highest correctness (0.665).",
     tags: ["LangGraph", "CrewAI", "LlamaIndex"],
-    href: "https://github.com/wenxuanalex",
+    href: "https://github.com/wenxuanalex/GenAI-with-LLMs",
+  },
+  {
+    title: "Customer Churn MLOps Pipeline",
+    blurb:
+      "End-to-end churn pipeline over 541K retail transactions: a Bronze/Silver/Gold medallion flow orchestrated in Airflow, Optuna-tuned models versioned in an MLflow registry, and automated Staging→Production promotion gated on AUC.",
+    tags: ["Airflow", "MLflow", "Docker"],
+    href: "https://github.com/wenxuanalex/machine-learning-engineering",
+  },
+  {
+    title: "[redacted] Late-Delivery Prediction",
+    blurb:
+      "[redacted] technical assessment: a config-driven medallion pipeline predicting late deliveries, with a calibrated XGBoost model, Optuna tuning, and transformers fitted only on the training split to prevent leakage.",
+    tags: ["XGBoost", "Optuna", "scikit-learn"],
+    href: "https://github.com/wenxuanalex/[redacted]",
   },
 ];
 
@@ -92,7 +99,7 @@ export const experience = [
     company: "Accenture",
     period: "Jul 2021 – Jun 2022",
     detail:
-      "Designed a healthcare billing system in collaboration with developers, cutting maintenance costs by 25%; harmonized processes across 3 healthcare clusters, reducing policy-change costs by 50%.",
+      "Designed a national healthcare billing system by centralizing business processes across 3 healthcare clusters, reducing maintenance costs by 25%.",
   },
 ];
 
