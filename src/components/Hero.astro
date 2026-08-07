@@ -29,7 +29,7 @@ import { profile } from "../data/site";
     <div class="mt-10 flex items-center justify-center gap-4">
       <a
         href="#projects"
-        class="inline-flex items-center rounded-full bg-accent text-white font-semibold text-sm px-6 py-3 hover:bg-accent-soft transition-colors"
+        class="inline-flex items-center rounded-full bg-accent text-white font-semibold text-sm px-6 py-3 hover:bg-accent-hover transition-colors"
       >
         View Projects
       </a>
@@ -45,7 +45,7 @@ import { profile } from "../data/site";
   <a
     href="#about"
     aria-label="Scroll to about"
-    class="absolute bottom-8 left-1/2 -translate-x-1/2 text-ink-faint hover:text-ink transition-colors"
+    class="absolute bottom-4 left-1/2 -translate-x-1/2 inline-flex items-center justify-center w-11 h-11 text-ink-faint hover:text-ink transition-colors"
   >
     <svg
       width="24"
@@ -56,7 +56,8 @@ import { profile } from "../data/site";
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
-      class="animate-bounce"
+      aria-hidden="true"
+      class="animate-bounce scroll-cue"
     >
       <path d="M12 5v14M19 12l-7 7-7-7"></path>
     </svg>

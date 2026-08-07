@@ -21,14 +21,19 @@ import { projects } from "../data/site";
           </p>
           <div class="mt-5 flex flex-wrap gap-2">
             {project.tags.map((tag) => (
-              <span class="font-mono text-xs text-ink-faint border border-border rounded-full px-2.5 py-1">
+              <span class="font-mono text-xs text-ink-subtle border border-border rounded-full px-2.5 py-1">
                 {tag}
               </span>
             ))}
           </div>
           <span class="mt-5 text-sm font-medium text-accent-soft inline-flex items-center gap-1">
             View Project
-            <span class="transition-transform group-hover:translate-x-1">→</span>
+            <span
+              aria-hidden="true"
+              class="arrow-nudge transition-transform group-hover:translate-x-1"
+            >
+              →
+            </span>
           </span>
         </a>
       ))

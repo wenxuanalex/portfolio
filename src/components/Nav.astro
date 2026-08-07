@@ -3,9 +3,7 @@ import { profile, navItems } from "../data/site";
 ---
 
 <header class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-canvas/70">
-  <div
-    class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between"
-  >
+  <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
     <a
       href="#hero"
       class="text-sm font-semibold tracking-tight text-ink hover:text-accent-soft transition-colors"
@@ -13,8 +11,8 @@ import { profile, navItems } from "../data/site";
       {profile.name}
     </a>
 
-    <nav aria-label="Primary">
-      <ul class="hidden sm:flex gap-7 list-none m-0 p-0">
+    <nav aria-label="Primary" class="flex items-center gap-3">
+      <ul class="hidden md:flex gap-7 list-none m-0 p-0">
         {
           navItems.map((item) => (
             <li>
@@ -28,13 +26,110 @@ import { profile, navItems } from "../data/site";
           ))
         }
       </ul>
-    </nav>
 
-    <a
-      href={profile.resumeUrl}
-      class="hidden sm:inline-flex text-sm font-medium text-ink border border-border rounded-full px-4 py-1.5 hover:border-accent hover:text-accent-soft transition-colors"
-    >
-      Résumé
-    </a>
+      <!-- Résumé stays reachable at every width. -->
+      <a
+        href={profile.resumeUrl}
+        class="inline-flex items-center text-sm font-medium text-ink border border-border rounded-full px-4 py-1.5 hover:border-accent hover:text-accent-soft transition-colors"
+      >
+        Résumé
+      </a>
+
+      <button
+        type="button"
+        id="menu-toggle"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-2 text-ink-subtle hover:text-ink transition-colors"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+          data-icon="open"
+        >
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+          data-icon="close"
+          class="hidden"
+        >
+          <path d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </nav>
+  </div>
+
+  <div
+    id="mobile-menu"
+    hidden
+    class="md:hidden border-t border-border bg-canvas/95 backdrop-blur-md"
+  >
+    <ul class="max-w-5xl mx-auto px-6 py-2 list-none m-0 flex flex-col">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block py-3 text-base text-ink-subtle hover:text-ink transition-colors"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+
+  if (toggle && menu) {
+    const openIcon = toggle.querySelector('[data-icon="open"]');
+    const closeIcon = toggle.querySelector('[data-icon="close"]');
+
+    const setOpen = (open: boolean) => {
+      menu.hidden = !open;
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      openIcon?.classList.toggle("hidden", open);
+      closeIcon?.classList.toggle("hidden", !open);
+    };
+
+    toggle.addEventListener("click", () => setOpen(menu.hidden));
+
+    // Jumping to a section should dismiss the menu.
+    menu.addEventListener("click", (event) => {
+      if ((event.target as HTMLElement).closest("a")) setOpen(false);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !menu.hidden) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    // Leaving the mobile breakpoint must not strand the panel open.
+    const desktop = window.matchMedia("(min-width: 768px)");
+    desktop.addEventListener("change", (event) => {
+      if (event.matches) setOpen(false);
+    });
+  }
+</script>

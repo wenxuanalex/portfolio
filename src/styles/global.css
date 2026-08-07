@@ -12,6 +12,7 @@
   --color-ink-subtle: #8a8f98;
   --color-ink-faint: #62666d;
   --color-accent: #5e6ad2;
+  --color-accent-hover: #4c57b8;
   --color-accent-soft: #828fff;
   --color-accent-blue: #3b78f6;
 
@@ -25,6 +26,17 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+}
+
+/* Visible keyboard focus on a pure-black canvas.
+   accent-soft measures 7.32:1 here — the strongest ring available. */
+:focus-visible {
+  outline: 2px solid var(--color-accent-soft);
+  outline-offset: 3px;
+  border-radius: var(--radius-md);
+}
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
 body {
@@ -46,16 +58,38 @@ body {
 .nav-link {
   position: relative;
 }
+/* Scale rather than width: compositor-only, no layout on hover. */
 .nav-link::after {
   content: "";
   position: absolute;
   left: 0;
   bottom: -4px;
   height: 1px;
-  width: 0;
-  background-color: var(--color-accent);
-  transition: width 0.25s ease;
-}
-.nav-link:hover::after {
   width: 100%;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Reduced motion: drop movement, keep colour feedback and every affordance.
+   Deliberately not a global transition kill — fades carry state, not motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .scroll-cue {
+    animation: none;
+  }
+  .nav-link::after {
+    transition: none;
+  }
+  .arrow-nudge {
+    transform: none !important;
+    transition: none;
+  }
 }
