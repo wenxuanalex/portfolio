@@ -104,7 +104,7 @@ export const projects: Project[] = [
       "A credit-card rewards optimiser for Singapore: log a purchase, get the card that earns you the most, and an explanation of why. Deterministic reward logic decides; the LLM only explains.",
     context:
       "Lead developer · seven-person team · Modern Software Solutions, SMU MITB · 2026",
-    tags: ["FastAPI", "React", "AWS", "Docker", "OpenAI"],
+    tags: ["FastAPI", "AWS EC2", "Docker", "GitHub Actions", "OpenAI"],
     repo: "https://github.com/SMU-MITB-IS631-Project/IS631-group-project",
     hero: {
       src: "/images/cardtrack-hero.webp",
@@ -119,32 +119,34 @@ export const projects: Project[] = [
         ],
       },
       {
-        heading: "Approach",
+        heading: "What I owned",
         body: [
-          "The system is a React and Vite single-page app over a layered FastAPI backend, split into routes, services and models, with SQLAlchemy managing a normalised schema of users, card catalogue, owned cards, bonus categories, transactions and security logs. Request and response contracts are enforced with Pydantic, and business validation lives in the service layer rather than in route handlers.",
-          "Authentication runs through AWS Cognito with JWT validation against Cognito JWKS and OTP confirmation at registration. Authorisation is role-aware, so catalogue writes are restricted to admins while ordinary users can only touch their own wallet.",
-          "I owned the card wallet management APIs, the recommendation engine, the CI/CD pipeline and the AWS deployment, working as one of the lead developers and repository managers across fourteen epics of one-week sprints.",
+          "Seven of us built CardTrack across fourteen epics of one-week sprints. I was one of the lead developers and the repository manager, and closed the most code of anyone on the team — 62 commits, +7,679 and −2,450 lines.",
+          "My scope was four things: the Card Wallet Management APIs, the AI-driven recommendation engine API, the CI/CD pipeline, and the deployment onto AWS. Teammates owned the database design and SQLAlchemy models, Cognito authentication and security logging, the reward-calculation rules, the AI explanation service, and the React frontend — the sections below stay inside my half of that line.",
+          "I also set up and configured Git for the team: branch strategy, protected main, and the pull-request flow that the CI pipeline later hooked into.",
         ],
         image: {
           src: "/images/cardtrack-architecture.webp",
           alt: "CardTrack architecture: web UI calling a FastAPI backend split into authentication, core services and recommendation engine over a SQLite database",
-          caption: "Three-tier architecture — React SPA, layered FastAPI backend, SQLite.",
+          caption:
+            "The team's system architecture. I built the recommendation engine and the wallet APIs inside Core Services.",
           plate: true,
         },
       },
       {
-        heading: "The AI layer",
+        heading: "The recommendation API",
         body: [
-          "The design decision I'd defend hardest is that the language model never makes the decision. The backend first computes ranked recommendations from database-verified card rules — rates, bonus categories, minimum spend, caps — and only then passes those verified results to the AI service, which turns them into a readable explanation.",
-          "That ordering means a wrong answer can only come from the rules, which are testable, not from a model that might hallucinate a reward rate. The explanation layer is hardened accordingly: configurable timeout and retry, automatic fallback to deterministic template text if the LLM is unavailable, merchant input sanitised before it reaches a prompt, and every GenAI access and failure event written to a security log for audit.",
-          "The result is explainability without surrendering accuracy or governance — the screen tells you it's 1.2 miles per dollar on a $380 entertainment purchase, and that number came from the database, not the model.",
+          "The wallet APIs were the foundation: create a profile, add cards from the catalogue into a personal wallet, log transactions against them. Straightforward CRUD, but it defines the state everything else reasons over, so the contracts had to be right before any recommendation logic could sit on top.",
+          "The recommendation engine is the API I'm most attached to, and the reason is an ordering constraint rather than a clever model. It computes ranked recommendations from database-verified card rules first — rates, bonus categories, minimum spend, caps — and only passes those verified results to the AI service for explanation. The language model never picks the card.",
+          "That ordering is what makes the feature defensible: a wrong answer can only come from rules a teammate wrote tests against, never from a model inventing a reward rate. My teammates supplied the reward-calculation and bonus-eligibility logic the engine calls, and built the explanation service it hands off to; my part was the API that enforces the sequence between them.",
         ],
       },
       {
         heading: "Shipping it",
         body: [
-          "Continuous integration runs on every pull request: clean environment, dependencies installed, full test suite with coverage gates before anything merges. Continuous deployment picks up from there — a multi-stage Docker build containerises the frontend assets and backend runtime together, pushes to Docker Hub, and redeploys onto AWS EC2 with configuration and secrets injected from GitHub Secrets and migrations applied at service startup.",
-          "Testing combines unit, integration and security-focused suites, using TestClient against SQLite test databases to verify routes and database behaviour end to end, with dedicated tests for authentication and GenAI access events. Statement and branch coverage reached 89%.",
+          "This is the part I owned end to end. Continuous integration runs on every pull request — clean environment, dependencies installed, the full suite with coverage checks before anything merges. It doesn't write the tests, but it means nobody merges past them.",
+          "Continuous deployment picks up from there: a multi-stage Docker build containerises the frontend assets and backend runtime together, pushes the image to Docker Hub, and redeploys onto AWS EC2. Configuration and secrets are injected from GitHub Secrets, persistent storage is mounted on the host, and migrations apply at service startup so schema and code never drift apart.",
+          "Automated deployment straight to production isn't normally wise, and we knew it. With no live users the trade was worth taking: it bought the team same-day iteration and gave me real practice with secret management and rollback-aware container operations, which a staging gate would have deferred to someone else.",
         ],
       },
     ],
