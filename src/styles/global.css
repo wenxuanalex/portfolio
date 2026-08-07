@@ -55,6 +55,31 @@ body {
   );
 }
 
+/* Contact closes the page with a glow anchored at each shoulder. */
+.glow-flank {
+  background:
+    radial-gradient(
+      42% 60% at 0% 50%,
+      rgba(94, 106, 210, 0.2) 0%,
+      rgba(94, 106, 210, 0) 72%
+    ),
+    radial-gradient(
+      42% 60% at 100% 50%,
+      rgba(94, 106, 210, 0.2) 0%,
+      rgba(94, 106, 210, 0) 72%
+    );
+}
+
+/* Project hero band: the same accent glow as the homepage, rotated to sweep in
+   from the left so a case study opens differently from the front page. */
+.glow-band {
+  background: radial-gradient(
+    75% 130% at 12% 12%,
+    rgba(94, 106, 210, 0.24) 0%,
+    rgba(94, 106, 210, 0) 62%
+  );
+}
+
 .nav-link {
   position: relative;
 }

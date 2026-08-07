@@ -3,15 +3,15 @@ import Section from "./Section.astro";
 import { skills } from "../data/site";
 ---
 
-<Section id="skills" eyebrow="What I use" title="Technical Arsenal">
-  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+<Section id="skills" title="The toolkit behind the work">
+  <div class="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
     {
       skills.map((group) => (
-        <div class="rounded-lg border border-border bg-canvas-raised p-6">
-          <h3 class="font-mono text-xs uppercase tracking-[0.15em] text-accent-soft mb-4">
+        <div>
+          <h3 class="font-mono text-xs uppercase tracking-[0.15em] text-accent-soft pb-3 border-b border-border">
             {group.category}
           </h3>
-          <ul class="space-y-2.5 list-none m-0 p-0">
+          <ul class="mt-4 space-y-2.5 list-none m-0 p-0">
             {group.items.map((item) => (
               <li class="text-ink text-sm font-medium">{item}</li>
             ))}

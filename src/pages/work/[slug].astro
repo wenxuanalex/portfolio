@@ -1,0 +1,138 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { profile, projects } from "../../data/site";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const index = projects.findIndex((entry) => entry.slug === project.slug);
+const next = projects[(index + 1) % projects.length];
+---
+
+<BaseLayout
+  title={`${project.title} — ${profile.name}`}
+  description={project.blurb}
+>
+  <header class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-canvas/70">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a
+        href="/#work"
+        class="inline-flex items-center gap-2 text-sm text-ink-subtle hover:text-ink transition-colors"
+      >
+        <span aria-hidden="true">←</span>
+        Back to work
+      </a>
+      <a
+        href={profile.resumeUrl}
+        class="inline-flex items-center text-sm font-medium text-ink border border-border rounded-full px-4 py-1.5 hover:border-accent hover:text-accent-soft transition-colors"
+      >
+        Résumé
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero band: an abstract plate rather than a screenshot, since these are
+         pipelines rather than interfaces. -->
+    <section class="relative overflow-hidden pt-16">
+      <div class="glow-band absolute inset-0 pointer-events-none"></div>
+      <div class="relative max-w-5xl mx-auto px-6 pt-16 pb-14 sm:pt-24 sm:pb-20">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent-soft">
+          {project.context}
+        </p>
+        <h1
+          class="mt-5 text-3xl sm:text-5xl font-extrabold tracking-tight text-ink leading-[1.12] text-balance max-w-3xl"
+        >
+          {project.title}
+        </h1>
+        <p
+          class="mt-5 text-base sm:text-lg text-ink-subtle leading-relaxed max-w-2xl"
+        >
+          {project.blurb}
+        </p>
+
+        <div class="mt-7 flex flex-wrap gap-2">
+          {
+            project.tags.map((tag) => (
+              <span class="font-mono text-xs text-ink-subtle border border-border rounded-full px-2.5 py-1">
+                {tag}
+              </span>
+            ))
+          }
+        </div>
+
+        {
+          project.repo && (
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-8 inline-flex items-center gap-2 rounded-full border border-border text-ink font-semibold text-sm px-5 py-2.5 hover:border-accent hover:text-accent-soft transition-colors"
+            >
+              View on GitHub
+              <span aria-hidden="true">↗</span>
+            </a>
+          )
+        }
+      </div>
+    </section>
+
+    <div class="max-w-5xl mx-auto px-6 pb-24">
+      {
+        project.sections.map((section) => (
+          <section class="border-t border-border py-12 md:flex md:gap-12">
+            <h2 class="text-sm font-semibold tracking-tight text-ink md:w-48 shrink-0 mb-4 md:mb-0">
+              {section.heading}
+            </h2>
+            <div
+              class:list={[
+                "max-w-2xl space-y-5",
+                section.todo && "border-l border-border pl-5",
+              ]}
+            >
+              {section.body.map((paragraph) => (
+                <p
+                  class:list={[
+                    "leading-relaxed text-base text-ink-subtle",
+                    section.todo && "italic",
+                  ]}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <nav
+        aria-label="Project navigation"
+        class="border-t border-border pt-10 flex flex-wrap items-center justify-between gap-4"
+      >
+        <a
+          href="/#work"
+          class="text-sm text-ink-subtle hover:text-ink transition-colors"
+        >
+          ← All work
+        </a>
+        <a
+          href={`/work/${next.slug}`}
+          class="group text-sm font-medium text-accent-soft inline-flex items-center gap-2"
+        >
+          Next: {next.title}
+          <span
+            aria-hidden="true"
+            class="arrow-nudge transition-transform group-hover:translate-x-1"
+          >
+            →
+          </span>
+        </a>
+      </nav>
+    </div>
+  </main>
+</BaseLayout>

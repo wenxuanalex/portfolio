@@ -1,0 +1,10 @@
+---
+import Section from "./Section.astro";
+import { story } from "../data/site";
+---
+
+<Section id="story" title={story.heading}>
+  <div class="max-w-2xl space-y-5 text-ink-subtle leading-relaxed text-base">
+    {story.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+  </div>
+</Section>

@@ -1,9 +1,9 @@
 ---
 import Section from "./Section.astro";
-import { experience } from "../data/site";
+import { experience, education } from "../data/site";
 ---
 
-<Section id="experience" eyebrow="Where I've worked" title="Experience">
+<Section id="experience" title="Where I've worked">
   <div class="relative">
     <div
       class="absolute left-0 md:left-40 top-2 bottom-2 w-px bg-border hidden md:block"
@@ -29,5 +29,29 @@ import { experience } from "../data/site";
         ))
       }
     </div>
+  </div>
+
+  <h3
+    class="mt-16 font-mono text-xs uppercase tracking-[0.15em] text-accent-soft pb-3 border-b border-border"
+  >
+    Education
+  </h3>
+  <div class="mt-6 space-y-4">
+    {
+      education.map((edu) => (
+        <div class="rounded-lg border border-border bg-canvas-raised p-6 md:flex md:items-start md:gap-6">
+          <div class="font-mono text-sm font-medium text-accent-soft md:w-40 shrink-0 mb-2 md:mb-0">
+            {edu.period}
+          </div>
+          <div>
+            <h4 class="text-ink font-semibold">{edu.degree}</h4>
+            <p class="text-ink-subtle text-sm mt-0.5">{edu.school}</p>
+            <p class="text-ink-subtle text-sm mt-3 leading-relaxed">
+              {edu.detail}
+            </p>
+          </div>
+        </div>
+      ))
+    }
   </div>
 </Section>

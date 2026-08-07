@@ -15,23 +15,23 @@ import { profile } from "../data/site";
       {profile.name}
     </p>
     <h1
-      class="text-4xl sm:text-6xl font-extrabold tracking-tight text-ink leading-[1.1]"
+      class="text-3xl sm:text-5xl font-extrabold tracking-tight text-ink leading-[1.12] text-balance"
     >
-      {profile.role}
+      {profile.headline}
     </h1>
-    <p class="mt-4 text-lg sm:text-xl text-ink-subtle font-medium">
-      {profile.tagline}
+    <p class="mt-6 text-lg sm:text-xl text-ink-muted font-medium">
+      {profile.role} · {profile.tagline}
     </p>
-    <p class="mt-6 text-base text-ink-subtle max-w-xl mx-auto leading-relaxed">
+    <p class="mt-5 text-base text-ink-subtle max-w-xl mx-auto leading-relaxed">
       {profile.intro}
     </p>
 
-    <div class="mt-10 flex items-center justify-center gap-4">
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
       <a
-        href="#projects"
+        href="#work"
         class="inline-flex items-center rounded-full bg-accent text-white font-semibold text-sm px-6 py-3 hover:bg-accent-hover transition-colors"
       >
-        View Projects
+        View Work
       </a>
       <a
         href={profile.resumeUrl}
@@ -43,8 +43,8 @@ import { profile } from "../data/site";
   </div>
 
   <a
-    href="#about"
-    aria-label="Scroll to about"
+    href="#story"
+    aria-label="Scroll to my story"
     class="absolute bottom-4 left-1/2 -translate-x-1/2 inline-flex items-center justify-center w-11 h-11 text-ink-faint hover:text-ink transition-colors"
   >
     <svg
