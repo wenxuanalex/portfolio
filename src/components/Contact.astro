@@ -1,0 +1,54 @@
+---
+import { profile } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<section id="contact" class="relative overflow-hidden">
+  <div class="glow absolute inset-0 pointer-events-none rotate-180"></div>
+  <div class="relative max-w-3xl mx-auto px-6 py-28 text-center">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent-soft mb-4">
+      Get in touch
+    </p>
+    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-ink">
+      Let's connect
+    </h2>
+    <p class="mt-4 text-ink-subtle max-w-md mx-auto">
+      Open to conversations about applied ML, agentic systems, and enterprise
+      GenAI.
+    </p>
+
+    <div class="mt-8 flex items-center justify-center gap-4">
+      <a
+        href={profile.links.email}
+        class="rounded-full bg-accent text-canvas font-semibold text-sm px-6 py-3 hover:bg-accent-soft transition-colors"
+      >
+        Email me
+      </a>
+      <a
+        href={profile.links.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="rounded-full border border-border text-ink font-semibold text-sm px-6 py-3 hover:border-accent hover:text-accent-soft transition-colors"
+      >
+        LinkedIn
+      </a>
+      <a
+        href={profile.links.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="rounded-full border border-border text-ink font-semibold text-sm px-6 py-3 hover:border-accent hover:text-accent-soft transition-colors"
+      >
+        GitHub
+      </a>
+    </div>
+  </div>
+
+  <footer class="border-t border-border">
+    <div
+      class="max-w-5xl mx-auto px-6 py-6 text-center text-sm text-ink-faint"
+    >
+      © {year} {profile.name}. Built with Astro.
+    </div>
+  </footer>
+</section>

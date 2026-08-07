@@ -1,0 +1,23 @@
+---
+import Section from "./Section.astro";
+import { skills } from "../data/site";
+---
+
+<Section id="skills" eyebrow="What I use" title="Technical Arsenal">
+  <div class="grid gap-6 sm:grid-cols-3">
+    {
+      skills.map((group) => (
+        <div class="rounded-2xl border border-border bg-canvas-raised p-6">
+          <h3 class="font-mono text-xs uppercase tracking-[0.15em] text-accent-soft mb-4">
+            {group.category}
+          </h3>
+          <ul class="space-y-2.5 list-none m-0 p-0">
+            {group.items.map((item) => (
+              <li class="text-ink text-sm font-medium">{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</Section>

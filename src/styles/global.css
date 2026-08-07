@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+/* ---- Design tokens (Tailwind v4 @theme) ---- */
+@theme {
+  --color-canvas: #0a0b0f;
+  --color-canvas-raised: #12141c;
+  --color-border: #21242e;
+  --color-ink: #f2f4f8;
+  --color-ink-subtle: #a2a8b8;
+  --color-ink-faint: #6b7180;
+  --color-accent: #7c88ff;
+  --color-accent-soft: #a5adff;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Radial glow used behind hero + contact */
+.glow {
+  background: radial-gradient(
+    60% 55% at 50% 0%,
+    rgba(124, 136, 255, 0.16) 0%,
+    rgba(124, 136, 255, 0) 70%
+  );
+}
+
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 0;
+  background-color: var(--color-accent);
+  transition: width 0.25s ease;
+}
+.nav-link:hover::after {
+  width: 100%;
+}

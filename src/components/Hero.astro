@@ -1,0 +1,64 @@
+---
+import { profile } from "../data/site";
+---
+
+<section
+  id="hero"
+  class="relative min-h-screen flex items-center justify-center overflow-hidden"
+>
+  <div class="glow absolute inset-0 pointer-events-none"></div>
+
+  <div class="relative max-w-3xl mx-auto px-6 text-center">
+    <p
+      class="font-mono text-xs uppercase tracking-[0.25em] text-accent-soft mb-6"
+    >
+      {profile.name}
+    </p>
+    <h1
+      class="text-4xl sm:text-6xl font-extrabold tracking-tight text-ink leading-[1.1]"
+    >
+      {profile.role}
+    </h1>
+    <p class="mt-4 text-lg sm:text-xl text-ink-subtle font-medium">
+      {profile.tagline}
+    </p>
+    <p class="mt-6 text-base text-ink-subtle max-w-xl mx-auto leading-relaxed">
+      {profile.intro}
+    </p>
+
+    <div class="mt-10 flex items-center justify-center gap-4">
+      <a
+        href="#projects"
+        class="inline-flex items-center rounded-full bg-accent text-canvas font-semibold text-sm px-6 py-3 hover:bg-accent-soft transition-colors"
+      >
+        View Projects
+      </a>
+      <a
+        href={profile.resumeUrl}
+        class="inline-flex items-center rounded-full border border-border text-ink font-semibold text-sm px-6 py-3 hover:border-accent hover:text-accent-soft transition-colors"
+      >
+        Download Résumé
+      </a>
+    </div>
+  </div>
+
+  <a
+    href="#about"
+    aria-label="Scroll to about"
+    class="absolute bottom-8 left-1/2 -translate-x-1/2 text-ink-faint hover:text-ink transition-colors"
+  >
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="animate-bounce"
+    >
+      <path d="M12 5v14M19 12l-7 7-7-7"></path>
+    </svg>
+  </a>
+</section>
