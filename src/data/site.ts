@@ -22,10 +22,12 @@ export const profile = {
 export const navItems = [
   { label: "Work", href: "/#work" },
   { label: "Skills", href: "/#skills" },
-  { label: "My Story", href: "/#story" },
   { label: "Contact", href: "/#contact" },
 ];
 
+// Not rendered — the My Story section is off the homepage for now. Kept here,
+// along with Story.astro, so it can be restored by re-adding <Story /> to
+// src/pages/index.astro and its nav entry above.
 export const story = {
   heading: "Why I build this way",
   paragraphs: [

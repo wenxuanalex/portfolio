@@ -93,12 +93,12 @@ decorative element on the site and must not be joined by others.
 The audience is a hiring manager screening for **AI Engineer**. Work must be
 reachable in the second viewport, so nothing narrative sits above it.
 
-Sections in order. The nav lists four; the hero and footer are unlabelled.
+Sections in order. The nav lists three; the hero and footer are unlabelled.
 
 1. **Nav** — sticky, dark, translucent with backdrop blur, **no bottom border or
-   divider**. Name at left links home. Anchors: Work · Skills · My Story ·
-   Contact. Résumé pill stays visible at every width. Below `md` the anchors
-   collapse into a toggle panel.
+   divider**. Name at left links home. Anchors: Work · Skills · Contact. Résumé
+   pill stays visible at every width. Below `md` the anchors collapse into a
+   toggle panel.
 2. **Hero** — full viewport height, `.glow`, mono eyebrow with the name, headline
    in Inter 800 with balanced wrapping, role/tagline line, short intro, two CTAs
    (View Work, Download Résumé), a muted `profile.status` line carrying current
@@ -109,15 +109,13 @@ Sections in order. The nav lists four; the hero and footer are unlabelled.
 4. **Skills** (`#skills`) — heading "The toolkit behind the work", five category
    columns, each a mono label over a hairline rule with a plain list beneath.
    GenAI and retrieval lead; classical ML sits last.
-5. **My Story** (`#story`) — heading, two paragraphs, single column at
-   `max-w-2xl`. Placed after the evidence: it explains the work rather than
-   introducing it.
-6. **Contact** (`#contact`) — `.glow-flank`, heading, three CTAs, hairline footer.
+5. **Contact** (`#contact`) — `.glow-flank`, heading, three CTAs, hairline footer.
 
-Experience and Education are deliberately **not** homepage sections — the résumé
-covers them, and the one hiring-relevant fact each carried (current role,
-graduation date) lives in `profile.status` in the hero. Their data is retained in
-`site.ts` so the sections can be restored without retyping.
+Experience, Education and My Story are deliberately **not** homepage sections.
+The résumé covers the first two, and the one hiring-relevant fact each carried
+(current role, graduation date) lives in `profile.status` in the hero. All three
+keep their data in `site.ts` — and `Story.astro` still exists — so any of them can
+be restored without retyping.
 
 ## Project pages — `/work/[slug]`
 
