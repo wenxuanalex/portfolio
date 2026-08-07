@@ -90,23 +90,34 @@ decorative element on the site and must not be joined by others.
 
 ## Homepage
 
-Sections in order. The nav lists five; the hero and footer are unlabelled.
+The audience is a hiring manager screening for **AI Engineer**. Work must be
+reachable in the second viewport, so nothing narrative sits above it.
+
+Sections in order. The nav lists four; the hero and footer are unlabelled.
 
 1. **Nav** — sticky, dark, translucent with backdrop blur, **no bottom border or
-   divider**. Name at left links home. Anchors: My Story · Work · Skills ·
-   Experience · Contact. Résumé pill stays visible at every width. Below `md` the
-   anchors collapse into a toggle panel.
+   divider**. Name at left links home. Anchors: Work · Skills · My Story ·
+   Contact. Résumé pill stays visible at every width. Below `md` the anchors
+   collapse into a toggle panel.
 2. **Hero** — full viewport height, `.glow`, mono eyebrow with the name, headline
    in Inter 800 with balanced wrapping, role/tagline line, short intro, two CTAs
-   (View Work, Download Résumé), and a scroll indicator at the bottom.
-3. **My Story** (`#story`) — heading, three paragraphs, single column at `max-w-2xl`.
-4. **Work** (`#work`) — one featured full-width card, then the remainder in a
-   two-column grid. Every card links to its own `/work/*` page.
-5. **Skills** (`#skills`) — heading "The toolkit behind the work", five category
+   (View Work, Download Résumé), a muted `profile.status` line carrying current
+   employment and graduation date, and a scroll indicator pointing at `#work`.
+3. **Work** (`#work`) — one featured full-width card, then the remainder in a
+   two-column grid. Every card links to its own `/work/*` page. Order is by
+   relevance to the target role, not chronology: GenAI and agentic work leads.
+4. **Skills** (`#skills`) — heading "The toolkit behind the work", five category
    columns, each a mono label over a hairline rule with a plain list beneath.
-6. **Experience** (`#experience`) — dated timeline with an accent node per role.
-   Education follows as a labelled sub-block rather than its own nav entry.
-7. **Contact** (`#contact`) — `.glow-flank`, heading, three CTAs, hairline footer.
+   GenAI and retrieval lead; classical ML sits last.
+5. **My Story** (`#story`) — heading, two paragraphs, single column at
+   `max-w-2xl`. Placed after the evidence: it explains the work rather than
+   introducing it.
+6. **Contact** (`#contact`) — `.glow-flank`, heading, three CTAs, hairline footer.
+
+Experience and Education are deliberately **not** homepage sections — the résumé
+covers them, and the one hiring-relevant fact each carried (current role,
+graduation date) lives in `profile.status` in the hero. Their data is retained in
+`site.ts` so the sections can be restored without retyping.
 
 ## Project pages — `/work/[slug]`
 
@@ -133,6 +144,14 @@ Generated from `projects[]` in `src/data/site.ts` via `getStaticPaths`.
 - Hero bands are abstract by design where no genuine artwork exists. These are
   pipelines, not interfaces, so a fabricated UI mockup would misrepresent the
   work. Replace with real screenshots only when genuine ones exist.
+
+## Social card
+
+`public/og.png` bakes the role and tagline into pixels, so editing `site.ts`
+alone leaves the preview stale. Regenerate with `node scripts/og.mjs`, which
+fills `scripts/og/template.html` from `profile` and the `site` URL in
+`astro.config.mjs`, then screenshots it at 1200x630. Re-run it whenever role,
+tagline or domain changes.
 
 ## Imagery
 
@@ -163,8 +182,7 @@ Breakpoints are `sm` 640px, `md` 768px, `lg` 1024px.
 
 - **Navigation** collapses to a toggle below `md`; the Résumé CTA stays visible at
   every width.
-- **Two-column layouts** (Experience timeline, Education rows, project section
-  rows) stack below `md`.
+- **Two-column layouts** (project section rows) stack below `md`.
 - **Skills** steps 1 → 2 (`sm`) → 5 (`lg`). **Work grid** steps 1 → 2 (`sm`).
 - Interactive targets are at least 44×44px.
 

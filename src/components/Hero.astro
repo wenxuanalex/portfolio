@@ -28,7 +28,7 @@ import { profile } from "../data/site";
 
     <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
       <a
-        href="#work"
+        href="/#work"
         class="inline-flex items-center rounded-full bg-accent text-white font-semibold text-sm px-6 py-3 hover:bg-accent-hover transition-colors"
       >
         View Work
@@ -40,11 +40,14 @@ import { profile } from "../data/site";
         Download Résumé
       </a>
     </div>
+
+    <!-- Employment and availability, which the Experience section used to carry. -->
+    <p class="mt-8 text-sm text-ink-subtle">{profile.status}</p>
   </div>
 
   <a
-    href="#story"
-    aria-label="Scroll to my story"
+    href="/#work"
+    aria-label="Scroll to selected work"
     class="absolute bottom-4 left-1/2 -translate-x-1/2 inline-flex items-center justify-center w-11 h-11 text-ink-faint hover:text-ink transition-colors"
   >
     <svg

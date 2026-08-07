@@ -3,12 +3,14 @@
 
 export const profile = {
   name: "Wen Xuan (Alex)",
-  role: "Machine Learning Data Scientist",
+  role: "AI Engineer",
   headline:
-    "From consulting decks to production pipelines, with the same respect for evidence",
-  tagline: "Applied ML & Agentic Workflows",
+    "I build LLM systems that can be trusted in production, not just demoed",
+  tagline: "Agentic Workflows · RAG · Evaluation",
   intro:
-    "I build machine learning systems end to end — the pipeline, the registry, and the monitoring around the model, not just the notebook.",
+    "Agent orchestration, retrieval pipelines, and the guardrails around them — deterministic logic where correctness matters, models where language does, and an evaluation harness proving which is which.",
+  status:
+    "Enterprise AI Products @ HTX · SMU MITB (AI track), graduating Mar 2027",
   resumeUrl: "/resume.pdf",
   links: {
     linkedin: "https://www.linkedin.com/in/wenxuanalex/",
@@ -18,19 +20,17 @@ export const profile = {
 };
 
 export const navItems = [
-  { label: "My Story", href: "/#story" },
   { label: "Work", href: "/#work" },
   { label: "Skills", href: "/#skills" },
-  { label: "Experience", href: "/#experience" },
+  { label: "My Story", href: "/#story" },
   { label: "Contact", href: "/#contact" },
 ];
 
 export const story = {
-  heading: "From consulting to machine learning",
+  heading: "Why I build this way",
   paragraphs: [
-    "I spent my first four years in strategy and technology consulting — Accenture, McKinsey, then Tri-Sector Associates — building the models that decide where money goes. Market sizing, pricing, cost structures. The work taught me that a number is only as useful as the argument around it.",
-    "I moved into machine learning because I wanted to build the systems that produce those numbers, not just the slides that present them. Now I'm reading for a Master of IT in Business on the AI track at SMU, and running technical discovery for enterprise Generative AI products at HTX.",
-    "What carried over is a bias toward evidence. I care about out-of-time validation, calibration, and drift — the parts that decide whether a model survives contact with production. Most of what I build ships as a pipeline with a registry and a monitoring story attached, because that's what makes a model trustworthy rather than merely accurate.",
+    "I spent four years in strategy and technology consulting — Accenture, McKinsey, then Tri-Sector Associates — building the models that decided where money went. Pricing, market sizing, cost structures. The work taught me that a number is only worth what the argument behind it can survive, and that the person presenting it is accountable when it's wrong.",
+    "That's the instinct I brought to AI engineering. A language model is a superb interface and an unreliable authority, so I keep it away from decisions that have to be right: deterministic logic computes the answer, the model explains it, and something measurable proves the arrangement works. Most of what's below is an argument about where that line belongs — and the evaluation harness or fallback path that holds it there.",
   ],
 };
 
@@ -98,118 +98,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "customer-churn-mlops",
-    title: "Customer Churn MLOps Pipeline",
-    blurb:
-      "A weekly churn classifier for a UK online retailer, shipped as a full MLOps system: medallion data flow, Optuna-tuned models in an MLflow registry, gated promotion, and drift monitoring in production.",
-    context: "Group project · Machine Learning Engineering, SMU MITB · 2026",
-    tags: ["Airflow", "MLflow", "Docker", "Optuna", "PySpark"],
-    repo: "https://github.com/wenxuanalex/machine-learning-engineering",
-    sections: [
-      {
-        heading: "Problem",
-        body: [
-          "Flagging at-risk customers is only valuable if it happens on a schedule the business can act on, with a model someone is willing to trust. A one-off notebook that scores 0.8 AUC answers neither requirement.",
-          "The dataset was UCI Online Retail: 541,000 transactions across December 2010 to December 2011, which reduced to 3,309 customers with enough history to model. Small enough to overfit easily, messy enough to leak if the pipeline is careless.",
-        ],
-      },
-      {
-        heading: "Approach",
-        body: [
-          "The data flows through a Bronze/Silver/Gold medallion architecture — raw parquet, then cleaned, then a Gold feature store with train/validation/test splits. Every transformer fits on training data only, so the split boundary is enforced structurally rather than by discipline.",
-          "Training compares logistic regression, random forest and gradient boosting with Optuna hyperparameter search, logging every run to MLflow. The best run is registered, and promote.py moves it Staging → Production only if AUC improves on the incumbent — a champion/challenger gate rather than a manual decision.",
-          "Two Airflow DAGs run the system: churn_data_pipeline monthly for the data refresh, churn_weekly_inference weekly for scoring. Batch inference writes CSV and parquet; an optional MLflow serving container exposes the same Production model over REST at /invocations.",
-        ],
-      },
-      {
-        heading: "Challenges",
-        body: [
-          "The hard part was not accuracy but knowing when the model had gone stale. Monitoring computes PSI across features, plus bias drift, fairness metrics and SHAP attribution summaries, so a degrading model surfaces as a drift signal rather than as a quiet decline in business outcomes months later.",
-          "Reproducibility across a group also meant containerising everything — the entire stack, including MLflow and Airflow, comes up through Docker Compose so a teammate reproduces the pipeline with one command rather than a README of environment fixes.",
-        ],
-      },
-      {
-        heading: "Outcome",
-        body: [
-          "The result is a system with a retraining path, a promotion gate, a serving surface and a monitoring story — the parts that usually get deferred. It is the closest thing in my portfolio to how a model actually lives in production.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "redacted-late-delivery",
-    title: "[redacted] Late-Delivery Prediction",
-    blurb:
-      "A config-driven pipeline predicting late deliveries from logistics and feedback data, built for the [redacted] Batch 24 technical assessment — calibrated XGBoost, Optuna tuning, and leakage prevention enforced by the architecture.",
-    context: "Solo · [redacted], Batch 24 assessment · 2026",
-    tags: ["XGBoost", "Optuna", "scikit-learn", "SQLite"],
-    repo: "https://github.com/wenxuanalex/[redacted]",
-    sections: [
-      {
-        heading: "Problem",
-        body: [
-          "The brief was to predict late deliveries from a SQLite database of delivery records and customer feedback, and to deliver it as a runnable pipeline rather than a notebook — assessed on engineering judgement as much as on model performance.",
-        ],
-      },
-      {
-        heading: "Approach",
-        body: [
-          "Everything is driven by config.yaml: paths, split ratios, model parameters, feature thresholds. No constant is buried in a module, so the whole pipeline is re-runnable against a different configuration without editing code.",
-          "The medallion structure maps one layer to one module. bronze_layer.py ingests the deliveries and feedback tables with zero transformation. silver_layer.py handles type casting, sentinel removal, deduplication, normalisation, imputation and timestamp filtering. gold_layer.py derives the target, engineers features, and applies a stratified 70/15/15 split.",
-          "Model training runs Optuna over XGBoost, then calibrates the output probabilities — for a late-delivery flag the ranking matters less than whether a predicted 0.7 actually means 70%, since the threshold drives an operational decision.",
-        ],
-      },
-      {
-        heading: "Challenges",
-        body: [
-          "The leakage risk sits in the Gold layer, where feature engineering and splitting meet. Both the one-hot encoder and the high-value-parcel threshold are fitted exclusively on the training split and then serialised alongside the model, so inference cannot see statistics derived from validation or test data.",
-          "Making that structural rather than procedural was the point: the split happens inside the same module that fits the transformers, so there is no ordering a future contributor can get wrong.",
-        ],
-      },
-      {
-        heading: "Outcome",
-        body: [
-          "The pipeline runs end to end from bash run.sh, writing a serialised calibrated model, the fitted encoder, and test-set metrics to results/evaluation.json. A decision log documents each modelling choice against the alternatives considered.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "credit-default-pipeline",
-    title: "Automated Credit-Default Prediction Pipeline",
-    blurb:
-      "An end-to-end PySpark and Airflow pipeline on a medallion architecture, training a LightGBM credit-default model to 0.817 out-of-time AUC with a versioned MLflow model registry.",
-    context: "Machine Learning Engineering, SMU MITB · 2026 · private repository",
-    tags: ["PySpark", "Airflow", "LightGBM", "MLflow"],
-    sections: [
-      {
-        heading: "Problem",
-        body: [
-          "Credit-default models are judged on how they behave on customers the model has never seen, in a period it was never trained on. Out-of-time validation, not a random test split, is the honest measure.",
-        ],
-      },
-      {
-        heading: "Approach",
-        body: [
-          "The pipeline runs on PySpark over a medallion architecture, orchestrated in Airflow, training LightGBM with the resulting models versioned in an MLflow registry.",
-        ],
-      },
-      {
-        heading: "Outcome",
-        body: [
-          "The model reached 0.817 out-of-time AUC, a 63% lift over the baseline, with the selected version registered and versioned in MLflow.",
-        ],
-      },
-      {
-        heading: "Notes",
-        todo: true,
-        body: [
-          "This project lives in a private repository, so this page is written from summary detail only. Worth adding: the feature engineering approach, how the out-of-time window was chosen, what the 63% lift is measured against, and why LightGBM over the alternatives.",
-        ],
-      },
-    ],
-  },
-  {
     slug: "cardtrack",
     title: "CardTrack",
     blurb:
@@ -261,37 +149,157 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "customer-churn-mlops",
+    title: "Customer Churn MLOps Pipeline",
+    blurb:
+      "A weekly churn classifier for a UK online retailer, shipped as a full MLOps system: medallion data flow, Optuna-tuned models in an MLflow registry, gated promotion, and drift monitoring in production.",
+    context: "Group project · Machine Learning Engineering, SMU MITB · 2026",
+    tags: ["Airflow", "MLflow", "Docker", "Optuna", "PySpark"],
+    repo: "https://github.com/wenxuanalex/machine-learning-engineering",
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "Flagging at-risk customers is only valuable if it happens on a schedule the business can act on, with a model someone is willing to trust. A one-off notebook that scores 0.8 AUC answers neither requirement.",
+          "The dataset was UCI Online Retail: 541,000 transactions across December 2010 to December 2011, which reduced to 3,309 customers with enough history to model. Small enough to overfit easily, messy enough to leak if the pipeline is careless.",
+        ],
+      },
+      {
+        heading: "Approach",
+        body: [
+          "The data flows through a Bronze/Silver/Gold medallion architecture — raw parquet, then cleaned, then a Gold feature store with train/validation/test splits. Every transformer fits on training data only, so the split boundary is enforced structurally rather than by discipline.",
+          "Training compares logistic regression, random forest and gradient boosting with Optuna hyperparameter search, logging every run to MLflow. The best run is registered, and promote.py moves it Staging → Production only if AUC improves on the incumbent — a champion/challenger gate rather than a manual decision.",
+          "Two Airflow DAGs run the system: churn_data_pipeline monthly for the data refresh, churn_weekly_inference weekly for scoring. Batch inference writes CSV and parquet; an optional MLflow serving container exposes the same Production model over REST at /invocations.",
+        ],
+      },
+      {
+        heading: "Challenges",
+        body: [
+          "The hard part was not accuracy but knowing when the model had gone stale. Monitoring computes PSI across features, plus bias drift, fairness metrics and SHAP attribution summaries, so a degrading model surfaces as a drift signal rather than as a quiet decline in business outcomes months later.",
+          "Reproducibility across a group also meant containerising everything — the entire stack, including MLflow and Airflow, comes up through Docker Compose so a teammate reproduces the pipeline with one command rather than a README of environment fixes.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "The result is a system with a retraining path, a promotion gate, a serving surface and a monitoring story — the parts that usually get deferred. It is the closest thing in my portfolio to how a model actually lives in production.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "credit-default-pipeline",
+    title: "Automated Credit-Default Prediction Pipeline",
+    blurb:
+      "An end-to-end PySpark and Airflow pipeline on a medallion architecture, training a LightGBM credit-default model to 0.817 out-of-time AUC with a versioned MLflow model registry.",
+    context: "Machine Learning Engineering, SMU MITB · 2026 · private repository",
+    tags: ["PySpark", "Airflow", "LightGBM", "MLflow"],
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "Credit-default models are judged on how they behave on customers the model has never seen, in a period it was never trained on. Out-of-time validation, not a random test split, is the honest measure.",
+        ],
+      },
+      {
+        heading: "Approach",
+        body: [
+          "The pipeline runs on PySpark over a medallion architecture, orchestrated in Airflow, training LightGBM with the resulting models versioned in an MLflow registry.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "The model reached 0.817 out-of-time AUC, a 63% lift over the baseline, with the selected version registered and versioned in MLflow.",
+        ],
+      },
+      {
+        heading: "Notes",
+        todo: true,
+        body: [
+          "This project lives in a private repository, so this page is written from summary detail only. Worth adding: the feature engineering approach, how the out-of-time window was chosen, what the 63% lift is measured against, and why LightGBM over the alternatives.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "redacted-late-delivery",
+    title: "[redacted] Late-Delivery Prediction",
+    blurb:
+      "A config-driven pipeline predicting late deliveries from logistics and feedback data, built for the [redacted] Batch 24 technical assessment — calibrated XGBoost, Optuna tuning, and leakage prevention enforced by the architecture.",
+    context: "Solo · [redacted], Batch 24 assessment · 2026",
+    tags: ["XGBoost", "Optuna", "scikit-learn", "SQLite"],
+    repo: "https://github.com/wenxuanalex/[redacted]",
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "The brief was to predict late deliveries from a SQLite database of delivery records and customer feedback, and to deliver it as a runnable pipeline rather than a notebook — assessed on engineering judgement as much as on model performance.",
+        ],
+      },
+      {
+        heading: "Approach",
+        body: [
+          "Everything is driven by config.yaml: paths, split ratios, model parameters, feature thresholds. No constant is buried in a module, so the whole pipeline is re-runnable against a different configuration without editing code.",
+          "The medallion structure maps one layer to one module. bronze_layer.py ingests the deliveries and feedback tables with zero transformation. silver_layer.py handles type casting, sentinel removal, deduplication, normalisation, imputation and timestamp filtering. gold_layer.py derives the target, engineers features, and applies a stratified 70/15/15 split.",
+          "Model training runs Optuna over XGBoost, then calibrates the output probabilities — for a late-delivery flag the ranking matters less than whether a predicted 0.7 actually means 70%, since the threshold drives an operational decision.",
+        ],
+      },
+      {
+        heading: "Challenges",
+        body: [
+          "The leakage risk sits in the Gold layer, where feature engineering and splitting meet. Both the one-hot encoder and the high-value-parcel threshold are fitted exclusively on the training split and then serialised alongside the model, so inference cannot see statistics derived from validation or test data.",
+          "Making that structural rather than procedural was the point: the split happens inside the same module that fits the transformers, so there is no ordering a future contributor can get wrong.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "The pipeline runs end to end from bash run.sh, writing a serialised calibrated model, the fitted encoder, and test-set metrics to results/evaluation.json. A decision log documents each modelling choice against the alternatives considered.",
+        ],
+      },
+    ],
+  },
 ];
 
 export const skills = [
   {
-    category: "Languages & Data",
-    items: ["Python", "SQL", "PySpark", "Pandas", "NumPy"],
-  },
-  {
-    category: "Machine Learning",
-    items: ["Applied ML", "XGBoost / LightGBM", "Optuna", "Calibration", "SHAP"],
-  },
-  {
     category: "GenAI & Agents",
     items: [
-      "Agentic Workflows",
-      "RAG",
-      "Fine-tuning",
-      "LLM-as-a-Judge",
       "LangGraph · CrewAI",
+      "LlamaIndex",
+      "Agentic Workflows",
+      "Fine-tuning",
+      "Prompt Guardrails",
     ],
   },
   {
-    category: "Pipelines & MLOps",
-    items: ["Airflow", "MLflow", "Medallion", "Docker", "Drift Monitoring"],
+    category: "Retrieval & Eval",
+    items: [
+      "RAG",
+      "Chroma",
+      "Hybrid Retrieval",
+      "Reranking",
+      "LLM-as-a-Judge",
+    ],
   },
   {
     category: "Engineering",
-    items: ["FastAPI", "REST APIs", "Pytest", "Git", "CI/CD"],
+    items: ["FastAPI", "REST APIs", "Docker", "CI/CD", "AWS"],
+  },
+  {
+    category: "Pipelines & MLOps",
+    items: ["Airflow", "MLflow", "Medallion", "PySpark", "Drift Monitoring"],
+  },
+  {
+    category: "ML & Data",
+    items: ["Python", "SQL", "XGBoost / LightGBM", "Optuna", "SHAP"],
   },
 ];
 
+// Retained for résumé parity. Not rendered on the homepage — the site leads with
+// projects — but kept here so the section can be re-surfaced without retyping it.
 export const experience = [
   {
     role: "Enterprise AI Products Intern",
