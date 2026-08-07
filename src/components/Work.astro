@@ -5,9 +5,9 @@ import { projects } from "../data/site";
 const featured = projects.find((project) => project.featured);
 const rest = projects.filter((project) => !project.featured);
 
-// Thumbnails switch on only once every card has one. A single card with
-// artwork beside four without reads as a bug, not a decision.
-const showThumbnails = projects.every((project) => project.hero);
+// Cards carry a thumbnail whenever real artwork exists. The grid lets each
+// card size to its own content (items-start), so a text-only card is simply
+// shorter rather than showing a void beside an illustrated neighbour.
 ---
 
 <Section id="work" title="Built end to end, not just modelled">
@@ -46,14 +46,14 @@ const showThumbnails = projects.every((project) => project.hero);
     )
   }
 
-  <div class="mt-6 grid gap-6 sm:grid-cols-2">
+  <div class="mt-6 grid gap-6 sm:grid-cols-2 items-start">
     {
       rest.map((project) => (
         <a
           href={`/work/${project.slug}`}
           class="group rounded-lg border border-border bg-canvas-raised p-6 flex flex-col hover:border-accent transition-colors"
         >
-          {showThumbnails && project.hero && (
+          {project.hero && (
             <img
               src={project.hero.src}
               alt=""

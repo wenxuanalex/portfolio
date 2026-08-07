@@ -151,8 +151,11 @@ photography, no illustration, no generated mockups.
 - **Loading:** heroes are `eager`, everything below the fold is `lazy`.
 - **Alt text** describes what the image shows. Card thumbnails repeat the
   adjacent title, so they take `alt=""` and stay out of the accessibility tree.
-- **Work card thumbnails appear only when every project has one.** One card with
-  artwork beside four without reads as a defect; the component gates on this.
+- **Work card thumbnails appear whenever real artwork exists**, and a mixed set is
+  fine. The grid uses `items-start` so each card sizes to its own content — a
+  text-only card is simply shorter than an illustrated one. Without that, the
+  grid stretches cards to equal height and the shorter one shows a void that
+  reads as a broken image.
 
 ## Responsive
 
