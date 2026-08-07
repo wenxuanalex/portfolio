@@ -1,18 +1,25 @@
 @import "tailwindcss";
 
 /* ---- Design tokens (Tailwind v4 @theme) ---- */
+/* Tokens extracted from a Linear-derived reference — see DESIGN.md */
 @theme {
-  --color-canvas: #0a0b0f;
-  --color-canvas-raised: #12141c;
-  --color-border: #21242e;
-  --color-ink: #f2f4f8;
-  --color-ink-subtle: #a2a8b8;
-  --color-ink-faint: #6b7180;
-  --color-accent: #7c88ff;
-  --color-accent-soft: #a5adff;
+  --color-canvas: #000000;
+  --color-canvas-raised: #0f1011;
+  --color-canvas-hover: #141516;
+  --color-border: #23252a;
+  --color-ink: #f7f8f8;
+  --color-ink-muted: #d0d6e0;
+  --color-ink-subtle: #8a8f98;
+  --color-ink-faint: #62666d;
+  --color-accent: #5e6ad2;
+  --color-accent-soft: #828fff;
+  --color-accent-blue: #3b78f6;
 
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
 }
 
 html {
@@ -31,8 +38,8 @@ body {
 .glow {
   background: radial-gradient(
     60% 55% at 50% 0%,
-    rgba(124, 136, 255, 0.16) 0%,
-    rgba(124, 136, 255, 0) 70%
+    rgba(94, 106, 210, 0.18) 0%,
+    rgba(94, 106, 210, 0) 70%
   );
 }
 
