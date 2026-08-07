@@ -217,6 +217,7 @@ export const projects: Project[] = [
     context:
       "Lead developer · seven-person team · Modern Software Solutions, SMU MITB · 2026",
     tags: ["FastAPI", "React", "AWS", "Docker", "OpenAI"],
+    repo: "https://github.com/SMU-MITB-IS631-Project/IS631-group-project",
     hero: {
       src: "/images/cardtrack-hero.webp",
       alt: "Four CardTrack app screens: new transaction entry, recommended card with explanation, spending dashboard, and card bonus detail",
