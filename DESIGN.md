@@ -171,10 +171,15 @@ photography, no illustration, no generated mockups.
 - **Alt text** describes what the image shows. Card thumbnails repeat the
   adjacent title, so they take `alt=""` and stay out of the accessibility tree.
 - **Work card thumbnails appear whenever real artwork exists**, and a mixed set is
-  fine. The grid uses `items-start` so each card sizes to its own content — a
-  text-only card is simply shorter than an illustrated one. Without that, the
-  grid stretches cards to equal height and the shorter one shows a void that
-  reads as a broken image.
+  fine. Thumbnails are `aspect-[16/9] object-cover`, so every card's image area is
+  identical even if a future source is not 1600×900.
+- **Work grid cards are equal height within a row.** The grid uses the default
+  `items-stretch`; each card is `flex flex-col`, and the tag/link footer carries
+  `mt-auto` so those rails align across the row no matter how long a blurb runs.
+  The featured full-width card sits outside the grid and is exempt.
+  Until every card has a thumbnail, an illustrated card will leave visible space
+  in its text-only row partner — the cost of aligned rails, and it resolves as
+  the artwork set fills in.
 
 ## Responsive
 
