@@ -9,20 +9,15 @@ import { profile } from "../data/site";
   <div class="glow absolute inset-0 pointer-events-none"></div>
 
   <div class="relative max-w-3xl mx-auto px-6 text-center">
-    <p
-      class="font-mono text-xs uppercase tracking-[0.25em] text-accent-soft mb-6"
-    >
-      {profile.name}
-    </p>
     <h1
       class="text-3xl sm:text-5xl font-extrabold tracking-tight text-ink leading-[1.12] text-balance"
     >
       {profile.headline}
     </h1>
     <p class="mt-6 text-lg sm:text-xl text-ink-muted font-medium">
-      {profile.role} · {profile.tagline}
+      {profile.role} · {profile.location}
     </p>
-    <p class="mt-5 text-base text-ink-subtle max-w-xl mx-auto leading-relaxed">
+    <p class="mt-6 text-base text-ink-subtle max-w-2xl mx-auto leading-relaxed">
       {profile.intro}
     </p>
 

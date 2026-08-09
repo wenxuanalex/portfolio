@@ -4,13 +4,13 @@
 export const profile = {
   name: "Wen Xuan (Alex)",
   role: "AI Engineer",
-  headline:
-    "I build LLM systems that can be trusted in production, not just demoed",
+  location: "Singapore",
+  headline: "I build GenAI systems, and the evidence that they work",
+  // Used by the social card (scripts/og.mjs), where keywords earn their place.
   tagline: "Agentic Workflows · RAG · Evaluation",
   intro:
-    "Agent orchestration, retrieval pipelines, and the guardrails around them — deterministic logic where correctness matters, models where language does, and an evaluation harness proving which is which.",
-  status:
-    "Enterprise AI Products @ HTX · SMU MITB (AI track), graduating Mar 2027",
+    "At HTX I run technical discovery on an enterprise speech-to-text and GenAI product for Ministry of Home Affairs agencies — mostly working out what these systems can really do before anyone commits to them. Before that, four years in consulting at Accenture, McKinsey and Tri-Sector. I build agentic workflows and retrieval pipelines, and I'd sooner show you an evaluation than a demo.",
+  status: "SMU MITB (AI track), graduating Mar 2027 · Open to AI Engineer roles",
   resumeUrl: "/resume.pdf",
   links: {
     linkedin: "https://www.linkedin.com/in/wenxuanalex/",

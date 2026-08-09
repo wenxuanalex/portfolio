@@ -99,10 +99,12 @@ Sections in order. The nav lists three; the hero and footer are unlabelled.
    divider**. Name at left links home. Anchors: Work · Skills · Contact. Résumé
    pill stays visible at every width. Below `md` the anchors collapse into a
    toggle panel.
-2. **Hero** — full viewport height, `.glow`, mono eyebrow with the name, headline
-   in Inter 800 with balanced wrapping, role/tagline line, short intro, two CTAs
-   (View Work, Download Résumé), a muted `profile.status` line carrying current
-   employment and graduation date, and a scroll indicator pointing at `#work`.
+2. **Hero** — full viewport height, `.glow`, headline in Inter 800 with balanced
+   wrapping, a `role · location` line, a short first-person intro grounded in the
+   résumé, two CTAs (View Work, Download Résumé), a muted `profile.status` line
+   carrying graduation date and availability, and a scroll indicator pointing at
+   `#work`. **No eyebrow** — the nav already carries the name, and a kicker above
+   a heading is a standing ban.
 3. **Work** (`#work`) — one featured full-width card, then the remainder in a
    two-column grid. Every card links to its own `/work/*` page. Order is by
    relevance to the target role, not chronology: GenAI and agentic work leads.
