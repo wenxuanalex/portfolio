@@ -231,8 +231,9 @@ export const projects: Project[] = [
     slug: "redacted-late-delivery",
     title: "[redacted] Late-Delivery Prediction",
     blurb:
-      "A config-driven pipeline predicting late deliveries from logistics and feedback data, built for the [redacted] Batch 24 technical assessment — calibrated XGBoost, Optuna tuning, and leakage prevention enforced by the architecture.",
-    context: "Solo · [redacted], Batch 24 assessment · 2026",
+      "My Batch 24 submission for [redacted]'s [redacted]: a config-driven pipeline predicting late deliveries from logistics and feedback data, with calibrated XGBoost, Optuna tuning, and leakage prevention enforced by the architecture.",
+    context:
+      "Solo · [redacted], [redacted] Batch 24 · technical assessment · 2026",
     tags: ["XGBoost", "Optuna", "scikit-learn", "SQLite"],
     repo: "https://github.com/wenxuanalex/[redacted]",
     hero: {
@@ -243,7 +244,7 @@ export const projects: Project[] = [
       {
         heading: "Problem",
         body: [
-          "The brief was to predict late deliveries from a SQLite database of delivery records and customer feedback, and to deliver it as a runnable pipeline rather than a notebook — assessed on engineering judgement as much as on model performance.",
+          "[redacted]'s [redacted] screens candidates with an individual technical assessment before a group round. The Batch 24 brief was to predict late deliveries from a SQLite database of delivery records and customer feedback, and to deliver it as a runnable pipeline rather than a notebook — marked on engineering judgement as much as on model performance. This submission cleared the individual assessment and went through to the group exercise stage.",
           "The class balance above sets the difficulty. Late deliveries average 11% of volume and the rate climbs steadily across the six booking months in the data, so accuracy is a useless metric here — a model that predicts \"on time\" every time scores 89%.",
         ],
       },
