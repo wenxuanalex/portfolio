@@ -237,22 +237,15 @@ export const projects: Project[] = [
     repo: "https://github.com/wenxuanalex/[redacted]",
     hero: {
       src: "/images/redacted-hero.webp",
-      alt: "Medallion pipeline diagram: SQLite source, Bronze raw snapshot, ETL clean and validate, Silver cleaned data, ETL engineer and split, Gold model-ready features",
+      alt: "Stacked bar chart of deliveries by booking month split into late and on-time, with a late-rate line rising from about 9% to 14% against a mean of 11%",
     },
     sections: [
       {
         heading: "Problem",
         body: [
           "The brief was to predict late deliveries from a SQLite database of delivery records and customer feedback, and to deliver it as a runnable pipeline rather than a notebook — assessed on engineering judgement as much as on model performance.",
-          "The class balance sets the difficulty. Late deliveries average 11% of volume and the rate climbs steadily across the six booking months in the data, so accuracy is a useless metric here — a model that predicts \"on time\" every time scores 89%.",
+          "The class balance above sets the difficulty. Late deliveries average 11% of volume and the rate climbs steadily across the six booking months in the data, so accuracy is a useless metric here — a model that predicts \"on time\" every time scores 89%.",
         ],
-        image: {
-          src: "/images/redacted-class-distribution.webp",
-          alt: "Stacked bar chart of deliveries by booking month split into late and on-time, with a late-rate line rising from about 9% to 14% against a mean of 11%",
-          caption:
-            "Late rate by booking month — mean 11%, trending upward across the window.",
-          plate: true,
-        },
       },
       {
         heading: "Approach",
@@ -261,6 +254,13 @@ export const projects: Project[] = [
           "The medallion structure maps one layer to one module. bronze_layer.py ingests the deliveries and feedback tables with zero transformation — [redacted] records across 18 raw columns. silver_layer.py handles type casting, sentinel removal, deduplication, normalisation, imputation and timestamp filtering, leaving roughly [redacted] rows. gold_layer.py derives the target, engineers 22 model-ready features, and applies a stratified 70/15/15 split.",
           "Model training runs Optuna over XGBoost, then calibrates the output probabilities — for a late-delivery flag the ranking matters less than whether a predicted 0.7 actually means 70%, since the threshold drives an operational decision.",
         ],
+        image: {
+          src: "/images/redacted-pipeline.webp",
+          alt: "Medallion pipeline diagram: SQLite source, Bronze raw snapshot, ETL clean and validate, Silver cleaned data, ETL engineer and split, Gold model-ready features",
+          caption:
+            "One layer, one module — [redacted] raw records to 22 model-ready features.",
+          plate: true,
+        },
       },
       {
         heading: "Challenges",

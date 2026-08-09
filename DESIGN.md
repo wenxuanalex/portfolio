@@ -164,6 +164,14 @@ photography, no illustration, no generated mockups.
 - **Hero plates** are composed at **1600×900** on `canvas-raised` with the accent
   glow behind, so mixed-aspect screenshots become one consistent set. Give every
   `<img>` explicit `width`/`height` to reserve layout space.
+- **Pick the hero for the thumbnail, not the page.** The same file renders at
+  ~960px on the case study and ~460px on the Work card. Anything whose meaning
+  lives in small text — a wide flow diagram, a dense table — becomes an
+  unreadable sliver at card size. Choose the artefact with the strongest shape
+  (a chart, a UI, a photo) and put the detailed diagram in the body instead.
+- **Compose, never crop, for heroes.** Card thumbnails use `object-fit: cover`,
+  which silently eats titles, legends and axis labels on any source that is not
+  16:9. Pad the artwork onto the plate so nothing is clipped.
 - **Light artwork** (Mermaid exports, most diagrams) sets `plate: true`, which
   renders it on a white pad inside the usual hairline border. Never drop a
   white-background image straight onto the canvas.
