@@ -169,6 +169,11 @@ photography, no illustration, no generated mockups.
   lives in small text — a wide flow diagram, a dense table — becomes an
   unreadable sliver at card size. Choose the artefact with the strongest shape
   (a chart, a UI, a photo) and put the detailed diagram in the body instead.
+- **Split them when the jobs differ.** A project may set `thumbnail` to override
+  the card image while `hero` stays on the page. The card's job is to earn a
+  click — a credential or a recognisable product shot can beat an informative
+  chart there. The page's job is evidence. Use the override sparingly; a single
+  image serving both is the default.
 - **Compose, never crop, for heroes.** Card thumbnails use `object-fit: cover`,
   which silently eats titles, legends and axis labels on any source that is not
   16:9. Pad the artwork onto the plate so nothing is clipped.

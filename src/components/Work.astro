@@ -56,9 +56,9 @@ const rest = projects.filter((project) => !project.featured);
           href={`/work/${project.slug}`}
           class="group rounded-lg border border-border bg-canvas-raised p-6 flex flex-col hover:border-accent transition-colors"
         >
-          {project.hero && (
+          {(project.thumbnail ?? project.hero) && (
             <img
-              src={project.hero.src}
+              src={(project.thumbnail ?? project.hero)!.src}
               alt=""
               width="1600"
               height="900"

@@ -59,8 +59,13 @@ export type Project = {
   tags: string[];
   repo?: string;
   featured?: boolean;
-  /** Doubles as the Work card thumbnail and the project page hero. */
+  /** Project page hero. Also the Work card thumbnail unless `thumbnail` is set. */
   hero?: ProjectImage;
+  /**
+   * Overrides the Work card thumbnail. Use when the card and the page want
+   * different things — the card sells, the page evidences.
+   */
+  thumbnail?: ProjectImage;
   sections: ProjectSection[];
 };
 
@@ -239,6 +244,11 @@ export const projects: Project[] = [
     hero: {
       src: "/images/redacted-hero.webp",
       alt: "Stacked bar chart of deliveries by booking month split into late and on-time, with a late-rate line rising from about 9% to 14% against a mean of 11%",
+    },
+    // The card leads with the credential; the page leads with the evidence.
+    thumbnail: {
+      src: "/images/redacted-card.webp",
+      alt: "",
     },
     sections: [
       {
