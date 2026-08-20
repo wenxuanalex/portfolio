@@ -5,11 +5,6 @@
       "source": "/work/credit-card-optimiser",
       "destination": "/work/cardtrack",
       "permanent": true
-    },
-    {
-      "source": "/work/redacted-late-delivery",
-      "destination": "/#work",
-      "permanent": true
     }
   ]
 }
