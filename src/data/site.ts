@@ -5,7 +5,7 @@ export const profile = {
   name: "Wen Xuan (Alex)",
   role: "AI Engineer",
   location: "Singapore",
-  headline: "I build AI tools, then check that they actually work",
+  headline: "I build AI tools and test them carefully",
   // Used by the social card (scripts/og.mjs), where keywords earn their place.
   tagline: "Agentic Workflows · RAG · Evaluation",
   intro:
