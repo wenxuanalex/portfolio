@@ -9,8 +9,8 @@ export const profile = {
   // Used by the social card (scripts/og.mjs), where keywords earn their place.
   tagline: "Agentic Workflows · RAG · Evaluation",
   intro:
-    "At HTX I run technical discovery on an enterprise speech-to-text and GenAI product for Ministry of Home Affairs agencies — mostly working out what these systems can really do before anyone commits to them. Before that, four years in consulting at Accenture, McKinsey and Tri-Sector. I build agentic workflows and retrieval pipelines, and I'd sooner show you an evaluation than a demo.",
-  status: "SMU MITB (AI track), graduating Mar 2027 · Open to AI Engineer roles",
+    "I'm an apprentice in AI Singapore's AI Apprenticeship Programme (AIAP Batch 24). Before that, I ran technical discovery at HTX on an enterprise speech-to-text and GenAI product for Ministry of Home Affairs agencies — mostly working out what these systems can really do before anyone commits to them — and spent three years in consulting at Accenture, McKinsey and Tri-Sector. I build agentic workflows and retrieval pipelines, and I'd sooner show you an evaluation than a demo.",
+  status: "AIAP Batch 24 · SMU MITB (AI track), graduating Mar 2027 · Open to AI Engineer roles from May 2027",
   resumeUrl: "/resume.pdf",
   links: {
     linkedin: "https://www.linkedin.com/in/wenxuanalex/",
@@ -31,7 +31,7 @@ export const navItems = [
 export const story = {
   heading: "Why I build this way",
   paragraphs: [
-    "I spent four years in strategy and technology consulting — Accenture, McKinsey, then Tri-Sector Associates — building the models that decided where money went. Pricing, market sizing, cost structures. The work taught me that a number is only worth what the argument behind it can survive, and that the person presenting it is accountable when it's wrong.",
+    "I spent three years in strategy and technology consulting — Accenture, McKinsey, then Tri-Sector Associates — building the models that decided where money went. Pricing, market sizing, cost structures. The work taught me that a number is only worth what the argument behind it can survive, and that the person presenting it is accountable when it's wrong.",
     "That's the instinct I brought to AI engineering. A language model is a superb interface and an unreliable authority, so I keep it away from decisions that have to be right: deterministic logic computes the answer, the model explains it, and something measurable proves the arrangement works. Most of what's below is an argument about where that line belongs — and the evaluation harness or fallback path that holds it there.",
   ],
 };
@@ -273,11 +273,18 @@ export const skills = [
 // projects — but kept here so the section can be re-surfaced without retyping it.
 export const experience = [
   {
+    role: "AI Apprentice (Batch 24, Industry track)",
+    company: "AI Singapore — AI Apprenticeship Programme (AIAP)",
+    period: "Oct 2026 – May 2027",
+    detail:
+      "Full-time apprenticeship in applied ML engineering, followed by a real-world AI project for an industry sponsor.",
+  },
+  {
     role: "Enterprise AI Products Intern",
     company: "HTX",
-    period: "May 2026 – Present",
+    period: "May 2026 – Sep 2026",
     detail:
-      "Conducting technical discovery and capability evaluation for an enterprise Speech-to-Text and Generative AI product for Ministry of Home Affairs (MHA) agencies.",
+      "Conducted technical discovery and capability evaluation for an enterprise Speech-to-Text and Generative AI product for Ministry of Home Affairs (MHA) agencies.",
   },
   {
     role: "Associate",
