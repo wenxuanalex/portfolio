@@ -105,6 +105,71 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "resume-screening-agent",
+    title: "Resume Screening Agent",
+    blurb:
+      "A LangGraph agent that screens CVs against job descriptions, quotes the resume for every requirement, and pauses for a human before any email goes out. Hidden-text prompt injection gets a CV disqualified in code, not in the prompt.",
+    context:
+      "Group project · Agentic AI for Intelligent Autonomy, SMU MITB · 2026",
+    tags: ["LangGraph", "OpenAI", "Guardrails", "Streamlit", "pytest"],
+    repo: "https://github.com/wenxuanalex/agentic-AI",
+    hero: {
+      src: "/images/resume-screening-hero.webp",
+      alt: "Reviewer UI showing screened, eligible and invited counts, and a ranked candidate list with the top candidate's score breakdown",
+      plate: true,
+    },
+    sections: [
+      {
+        heading: "Problem",
+        body: [
+          "Screening CVs is slow, and an LLM can speed it up. But an LLM screener has two obvious ways to go wrong. It can make up a reason to pass or reject someone, and a candidate can hide instructions in their CV (white text, tiny fonts) to talk the model into a better score.",
+          "Our group built an agent for this. It screens one CV against one job description, or every CV against every JD in a batch, and invites the top 20% per role. The brief also asked for Singapore's fair-employment guidelines to be part of the decision.",
+        ],
+      },
+      {
+        heading: "What I owned",
+        body: [
+          "I built the LangGraph side: the graph, the tools, the verifier, the batch job, planning mode and the prompt-injection guardrails. Teammates wrote the PDF parser and the evaluation harness, and built the Streamlit reviewer UI. I later rewired the UI to use the batch's own ranking rule, so the screen always shows exactly who will get emailed.",
+        ],
+      },
+      {
+        heading: "How it works",
+        body: [
+          "The agent parses the CV and the JD, then has to answer in a fixed format: one EVIDENCE line per JD requirement with an exact quote from the CV, the policy clause it relied on (P1–P11, summarised from TAFEP's Tripartite Guidelines), and a label.",
+          "A verifier checks that answer in code before anything else happens. Did both parsers run? Does every quote actually appear in the CV's visible text? Is the label valid, and is the policy clause real? If not, the agent gets sent back with what to fix, at most twice. If it still fails, no decision is made and no email is sent.",
+          "Emails are mocks. When screening one CV, a rejection goes out once verification passes, but an invitation waits for a human to approve it. In the batch, nothing is sent until a human approves the whole shortlist, and they can change the invite share at that point without re-running the screening.",
+        ],
+        image: {
+          src: "/images/resume-screening-evidence.webp",
+          alt: "Candidate detail in the reviewer UI: each JD requirement with the exact resume quote supporting it, the policy clause cited, and Agree or Override buttons",
+          caption:
+            "The reviewer sees the quote behind every requirement, and can agree or override before anything is sent. Shown with the UI's built-in demo data.",
+          plate: true,
+        },
+      },
+      {
+        heading: "Guardrails against hidden text",
+        body: [
+          "Telling the model to treat the CV as data isn't enough, so the defence lives in code. A detector reads the PDF with pdfplumber and flags text a person can't see: near-white text, fonts under 3pt, text off the page, and invisible render mode. Any CV with hidden text is disqualified from the batch and never invited. If the detector itself fails, the batch fails closed.",
+          "Every score input also has to come from visible text. Years of experience are capped by dates the reader can actually see, and a university only counts if its name is visible.",
+          "In the captured attack-suite run, all four attack CVs (hidden instructions, keyword stuffing, a fake system note, fake claims) were disqualified and got no email. The clean baseline CV stayed eligible. The 18 offline guardrail tests all pass.",
+        ],
+      },
+      {
+        heading: "Planning mode",
+        body: [
+          "I added a switch where the agent plans its tool calls once, code checks the plan, and code runs it, instead of the model choosing tools turn by turn. Over 20 runs per mode, planning cut tokens per case by about 36% (9,075 to 5,780), cost by about 19%, and model turns from 3.1 to 2.0. The labels didn't change.",
+        ],
+      },
+      {
+        heading: "Limitations",
+        body: [
+          "The hidden-text detector checks characters one by one, so text covered by an image or shape can slip through. Two-column CVs can come out in mixed reading order. And gpt-5-mini isn't deterministic, so results should be reported as pass rates across repeated runs, not as a single run.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "cardtrack",
     title: "CardTrack",
     blurb:
