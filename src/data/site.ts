@@ -5,11 +5,11 @@ export const profile = {
   name: "Wen Xuan (Alex)",
   role: "AI Engineer",
   location: "Singapore",
-  headline: "I build GenAI systems, and the evidence that they work",
+  headline: "I build AI tools, then check that they actually work",
   // Used by the social card (scripts/og.mjs), where keywords earn their place.
   tagline: "Agentic Workflows · RAG · Evaluation",
   intro:
-    "I'm an apprentice in AI Singapore's AI Apprenticeship Programme (AIAP Batch 24). Before that, I ran technical discovery at HTX on an enterprise speech-to-text and GenAI product for Ministry of Home Affairs agencies — mostly working out what these systems can really do before anyone commits to them — and spent three years in consulting at Accenture, McKinsey and Tri-Sector. I build agentic workflows and retrieval pipelines, and I'd sooner show you an evaluation than a demo.",
+    "Hi, I'm Wen Xuan (Alex). I'm doing AI Singapore's AI Apprenticeship Programme (AIAP Batch 24). Before this, I spent three years in consulting at Accenture, McKinsey and Tri-Sector, then interned at HTX on a speech-to-text and GenAI product for Home Team agencies. I build agents and RAG pipelines, and I care more about whether they work than whether they demo well.",
   status: "AIAP Batch 24 · SMU MITB (AI track), graduating Mar 2027 · Open to AI Engineer roles from May 2027",
   resumeUrl: "/resume.pdf",
   links: {
